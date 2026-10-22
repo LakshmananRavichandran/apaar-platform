@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: apaar_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: apaar_user
+      POSTGRES_PASSWORD: apaar_pass
+      POSTGRES_DB: apaar_verify
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U apaar_user -d apaar_verify"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: apaar_backend
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql://apaar_user:apaar_pass@postgres:5432/apaar_verify
+      - SECRET_KEY=aicte_apaar_production_secret_key_2026_super_secure
+      - ENCRYPTION_KEY=s9r_tY82V_Xn9-1G8Qf7d-2x7gM4Zp9A1B2C3D4E5F6=
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=60
+      - REFRESH_TOKEN_EXPIRE_DAYS=7
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: apaar_frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+
+volumes:
+  pgdata:
