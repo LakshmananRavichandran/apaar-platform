@@ -5,7 +5,7 @@ import {
   FileText, Upload, CheckCircle2, XCircle, Clock, Send, Eye,
   Building2, Calendar, Phone, Mail, MapPin, Hash
 } from 'lucide-react';
-import { ApiClient } from '../services/api';
+import { ApiClient, getDownloadUrl } from '../services/api';
 import { Student, AcademicRecord, DocumentItem, VerificationDifference } from '../types';
 import { useNowViewingStore } from '../store/useNowViewingStore';
 
@@ -239,7 +239,7 @@ export const StudentDetail: React.FC = () => {
           </button>
 
           <button
-            onClick={() => window.open(`http://localhost:8000/api/v1/students/${student.id}/certificate`, '_blank')}
+            onClick={() => window.open(getDownloadUrl(`/students/${student.id}/certificate`), '_blank')}
             className="spotify-pill-secondary text-xs py-2 px-3.5 flex items-center gap-1.5"
           >
             <Download className="w-3.5 h-3.5" />
@@ -247,7 +247,7 @@ export const StudentDetail: React.FC = () => {
           </button>
 
           <button
-            onClick={() => window.open(`http://localhost:8000/api/v1/students/${student.id}/id-card`, '_blank')}
+            onClick={() => window.open(getDownloadUrl(`/students/${student.id}/id-card`), '_blank')}
             className="spotify-pill-secondary text-xs py-2 px-3.5 flex items-center gap-1.5"
           >
             <Download className="w-3.5 h-3.5" />
@@ -392,7 +392,7 @@ export const StudentDetail: React.FC = () => {
                     </div>
                   </div>
                   <button
-                    onClick={() => window.open(`http://localhost:8000/api/v1/students/${student.id}/documents/${doc.id}/download`, '_blank')}
+                    onClick={() => window.open(getDownloadUrl(`/students/${student.id}/documents/${doc.id}/download`), '_blank')}
                     className="text-xs font-bold text-[#1DB954] hover:underline shrink-0 ml-2"
                   >
                     Download

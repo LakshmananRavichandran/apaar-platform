@@ -8,7 +8,7 @@ import {
   ShieldCheck, AlertTriangle, Building2, Users, Download,
   TrendingUp, Award, Filter, MapPin, Layers, ArrowUpRight
 } from 'lucide-react';
-import { ApiClient } from '../services/api';
+import { ApiClient, getDownloadUrl } from '../services/api';
 import { useNowViewingStore } from '../store/useNowViewingStore';
 
 const COLORS = ['#1DB954', '#3B82F6', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899'];
@@ -79,7 +79,7 @@ export const Dashboard: React.FC = () => {
           </select>
 
           <button
-            onClick={() => window.open('http://localhost:8000/api/v1/reports/export?dataset=students&format=pdf', '_blank')}
+            onClick={() => window.open(getDownloadUrl('/reports/export?dataset=students&format=pdf'), '_blank')}
             className="spotify-pill-secondary text-xs py-2 px-3.5 flex items-center gap-2"
           >
             <Download className="w-3.5 h-3.5" />

@@ -16,7 +16,7 @@ import {
   ChevronRight,
   Info
 } from 'lucide-react';
-import { api } from '../services/api';
+import { api, getDownloadUrl } from '../services/api';
 import toast from 'react-hot-toast';
 
 interface AuditItem {
@@ -101,7 +101,7 @@ export const AuditLogs: React.FC = () => {
   };
 
   const handleExportCsv = () => {
-    window.open('http://localhost:8000/api/v1/audit/export', '_blank');
+    window.open(getDownloadUrl('/audit/export'), '_blank');
   };
 
   return (

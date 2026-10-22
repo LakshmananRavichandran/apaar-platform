@@ -4,7 +4,7 @@ import {
   UploadCloud, FileText, CheckCircle2, AlertTriangle, ArrowRight,
   Download, RefreshCw, Trash2, ArrowLeft, Check, Layers
 } from 'lucide-react';
-import { ApiClient } from '../services/api';
+import { ApiClient, getDownloadUrl } from '../services/api';
 import { useAuthStore } from '../store/useAuthStore';
 
 export const BulkUpload: React.FC = () => {
@@ -126,7 +126,7 @@ export const BulkUpload: React.FC = () => {
         </div>
 
         <button
-          onClick={() => window.open('http://localhost:8000/api/v1/uploads/template', '_blank')}
+          onClick={() => window.open(getDownloadUrl('/uploads/template'), '_blank')}
           className="spotify-pill-secondary text-xs py-2 px-3.5 flex items-center gap-2"
         >
           <Download className="w-3.5 h-3.5" />
@@ -295,7 +295,7 @@ export const BulkUpload: React.FC = () => {
                 <b>Partial Success:</b> {uploadResult.error_count} records failed validation rules (e.g. invalid Luhn check digit, duplicate APAAR, or missing mandatory fields).
               </div>
               <button
-                onClick={() => window.open(`http://localhost:8000/api/v1/uploads/${uploadResult.batch_id}/errors-csv`, '_blank')}
+                onClick={() => window.open(getDownloadUrl(`/uploads/${uploadResult.batch_id}/errors-csv`), '_blank')}
                 className="spotify-pill-secondary text-xs py-1.5 px-3 shrink-0 ml-4 flex items-center gap-1.5"
               >
                 <Download className="w-3.5 h-3.5" />

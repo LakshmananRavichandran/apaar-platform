@@ -81,7 +81,10 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
     const connectWs = () => {
       try {
-        const url = `ws://localhost:8000/ws${user?.id ? `?user_id=${user.id}` : ''}`;
+        const wsProto = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const wsHost = window.location.hostname;
+        const wsPort = window.location.port === '5173' ? ':8000' : (window.location.port ? `:${window.location.port}` : '');
+        const url = `${wsProto}//${wsHost}${wsPort}/ws${user?.id ? `?user_id=${user.id}` : ''}`;
         ws = new WebSocket(url);
 
         ws.onopen = () => {

@@ -15,7 +15,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { useSearchParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import { api } from '../services/api';
 import toast from 'react-hot-toast';
 
 interface PublicVerifyResult {
@@ -57,7 +57,7 @@ export const PublicVerify: React.FC = () => {
       setLoading(true);
       setResult(null);
       const params = queryType === 'apaar' ? { apaar: apaarQuery.trim() } : { code: codeQuery.trim() };
-      const res = await axios.get('http://localhost:8000/api/v1/verification/public-verify', { params });
+      const res = await api.get('/verification/public-verify', { params });
       setResult(res.data);
       if (res.data.is_valid) {
         toast.success('Certificate Authenticated Successfully!');

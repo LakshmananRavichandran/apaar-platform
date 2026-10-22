@@ -19,7 +19,7 @@ import {
   RefreshCw,
   QrCode
 } from 'lucide-react';
-import { api } from '../services/api';
+import { api, getDownloadUrl } from '../services/api';
 import toast from 'react-hot-toast';
 
 interface StudentProfile {
@@ -129,11 +129,11 @@ export const StudentPortal: React.FC = () => {
   }, []);
 
   const handleDownloadIdCard = () => {
-    window.open('http://localhost:8000/api/v1/student-portal/my-id-card', '_blank');
+    window.open(getDownloadUrl('/student-portal/my-id-card'), '_blank');
   };
 
   const handleDownloadData = () => {
-    window.open('http://localhost:8000/api/v1/student-portal/download-data', '_blank');
+    window.open(getDownloadUrl('/student-portal/download-data'), '_blank');
   };
 
   const handleConsentResponse = async (requestId: number, decision: 'APPROVE' | 'DENY') => {

@@ -5,7 +5,7 @@ import {
   Download, Plus, LayoutGrid, List, CheckCircle2, ChevronLeft, ChevronRight,
   MoreVertical, CheckSquare
 } from 'lucide-react';
-import { ApiClient } from '../services/api';
+import { ApiClient, getDownloadUrl } from '../services/api';
 import { Student } from '../types';
 import { useNowViewingStore } from '../store/useNowViewingStore';
 
@@ -131,7 +131,7 @@ export const Students: React.FC = () => {
           </div>
 
           <button
-            onClick={() => window.open('http://localhost:8000/api/v1/reports/export?dataset=students&format=csv', '_blank')}
+            onClick={() => window.open(getDownloadUrl('/reports/export?dataset=students&format=csv'), '_blank')}
             className="spotify-pill-secondary text-xs py-2 px-3.5 flex items-center gap-1.5"
           >
             <Download className="w-3.5 h-3.5" />

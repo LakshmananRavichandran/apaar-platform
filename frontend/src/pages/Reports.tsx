@@ -12,6 +12,7 @@ import {
   BarChart3,
   Filter
 } from 'lucide-react';
+import { getDownloadUrl } from '../services/api';
 import toast from 'react-hot-toast';
 
 export const Reports: React.FC = () => {
@@ -20,7 +21,7 @@ export const Reports: React.FC = () => {
   const [scheduledFrequency, setScheduledFrequency] = useState<string>('weekly');
 
   const handleExport = (dataset: string, format: string) => {
-    const url = `http://localhost:8000/api/v1/reports/export?dataset=${dataset}&format=${format}`;
+    const url = getDownloadUrl(`/reports/export?dataset=${dataset}&format=${format}`);
     window.open(url, '_blank');
     toast.success(`Generating official AICTE ${dataset} report in ${format.toUpperCase()} format...`);
   };

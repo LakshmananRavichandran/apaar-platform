@@ -4,7 +4,7 @@ import {
   GraduationCap, Search, Building2, Award, Users, AlertTriangle,
   ArrowRight, CheckCircle2, MapPin, Phone, Mail, Globe, ExternalLink
 } from 'lucide-react';
-import { ApiClient } from '../services/api';
+import { ApiClient, getDownloadUrl } from '../services/api';
 import { College } from '../types';
 import { useNowViewingStore } from '../store/useNowViewingStore';
 
@@ -70,7 +70,7 @@ export const Colleges: React.FC = () => {
         </div>
 
         <button
-          onClick={() => window.open('http://localhost:8000/api/v1/reports/export?dataset=colleges&format=csv', '_blank')}
+          onClick={() => window.open(getDownloadUrl('/reports/export?dataset=colleges&format=csv'), '_blank')}
           className="spotify-pill-secondary text-xs py-2 px-3.5"
         >
           Export Directory

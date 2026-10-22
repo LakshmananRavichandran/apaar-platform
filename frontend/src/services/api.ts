@@ -1,6 +1,22 @@
 import axios from 'axios';
 
-const API_BASE = 'http://localhost:8000/api/v1';
+export const getApiBase = (): string => {
+  if (typeof window === 'undefined') return 'http://localhost:8000/api/v1';
+  // If Vite dev server (port 5173), route to the current machine's port 8000
+  if (window.location.port === '5173') {
+    return `${window.location.protocol}//${window.location.hostname}:8000/api/v1`;
+  }
+  // If served unified on port 8000, 3000, localtunnel, or cloud domain
+  return `${window.location.protocol}//${window.location.host}/api/v1`;
+};
+
+export const API_BASE = getApiBase();
+
+export const getDownloadUrl = (path: string): string => {
+  const base = getApiBase();
+  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  return `${base}${cleanPath}`;
+};
 
 export const api = axios.create({
   baseURL: API_BASE,
