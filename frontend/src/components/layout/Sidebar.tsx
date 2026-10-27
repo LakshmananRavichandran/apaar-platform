@@ -4,7 +4,7 @@ import {
   Home, LayoutDashboard, Users, GraduationCap, ShieldCheck,
   AlertTriangle, Copy, CheckSquare, UploadCloud, BarChart3,
   SearchCheck, UserCircle, Database, Activity, ShieldAlert,
-  Sparkles, ExternalLink, Bookmark
+  Sparkles, ExternalLink, Bookmark, Award
 } from 'lucide-react';
 import { useAuthStore } from '../../store/useAuthStore';
 import { useAppStore } from '../../store/useAppStore';
@@ -37,24 +37,32 @@ export const Sidebar: React.FC = () => {
   );
 
   return (
-    <aside className="w-64 bg-[#121212] flex flex-col h-screen select-none border-r border-[#242424] shrink-0">
-      {/* Brand Header */}
-      <div className="p-5 flex items-center gap-3">
-        <div className="w-9 h-9 rounded-full bg-[#1DB954] flex items-center justify-center text-black font-black text-xl shadow-lg shadow-[#1DB954]/20 animate-pulse">
-          A
+    <aside className="w-64 bg-slate-50 dark:bg-[#0B1120] flex flex-col h-screen select-none border-r border-slate-200 dark:border-slate-800 shrink-0 transition-colors duration-200">
+      {/* Official Government Brand Header */}
+      <div className="p-4 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0F172A]">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-[#0A3871] text-white flex flex-col items-center justify-center font-black text-sm shadow-sm shrink-0 border border-blue-900">
+            <span className="text-[#EA580C] text-[10px] leading-tight font-extrabold">GOV</span>
+            <span className="leading-none text-xs">AICTE</span>
+          </div>
+          <div>
+            <div className="flex items-center gap-1.5 font-black text-slate-900 dark:text-white text-base tracking-tight">
+              <span>APAAR</span>
+              <span className="text-[#EA580C]">VERIFY</span>
+            </div>
+            <div className="text-[10px] uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400">
+              National Depository Portal
+            </div>
+          </div>
         </div>
-        <div>
-          <span className="font-black text-white text-lg tracking-tight flex items-center gap-1.5">
-            APAAR<span className="text-[#1DB954]">VERIFY</span>
-          </span>
-          <span className="text-[10px] uppercase font-bold tracking-widest text-[#B3B3B3] block">
-            AICTE SIH26263
-          </span>
+        <div className="mt-2 text-[9px] text-slate-400 dark:text-slate-500 font-semibold uppercase tracking-wider flex items-center justify-between">
+          <span>AICTE SIH26263</span>
+          <span className="text-[#15803D] dark:text-emerald-400 font-bold">MoE GOVT. OF INDIA</span>
         </div>
       </div>
 
       {/* Main Nav Items */}
-      <div className="flex-1 overflow-y-auto px-3 py-2 space-y-1">
+      <div className="flex-1 overflow-y-auto px-2.5 py-3 space-y-1">
         {allowedNav.map((item) => {
           const Icon = item.icon;
           return (
@@ -62,21 +70,21 @@ export const Sidebar: React.FC = () => {
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `flex items-center gap-3.5 px-3 py-2.5 rounded-md text-sm font-semibold transition-all duration-200 group ${
+                `flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold transition-all duration-150 ${
                   isActive
-                    ? 'bg-[#282828] text-white font-bold text-shadow'
-                    : 'text-[#B3B3B3] hover:text-white hover:bg-[#1a1a1a]'
+                    ? 'bg-[#0A3871] text-white font-bold shadow-xs'
+                    : 'text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800/80 hover:text-[#0A3871] dark:hover:text-white'
                 }`
               }
             >
               {({ isActive }) => (
                 <>
                   <Icon
-                    className={`w-5 h-5 transition-transform duration-200 group-hover:scale-110 ${
-                      isActive ? 'text-[#1DB954]' : 'text-[#B3B3B3] group-hover:text-white'
+                    className={`w-4 h-4 shrink-0 ${
+                      isActive ? 'text-white' : 'text-slate-500 dark:text-slate-400'
                     }`}
                   />
-                  <span>{item.label}</span>
+                  <span className="truncate">{item.label}</span>
                 </>
               )}
             </NavLink>
@@ -84,47 +92,47 @@ export const Sidebar: React.FC = () => {
         })}
 
         {/* Ask APAAR AI Assistant trigger pill */}
-        <div className="pt-3">
+        <div className="pt-2">
           <button
             onClick={toggleAiDrawer}
-            className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg bg-gradient-to-r from-emerald-950/60 to-[#181818] border border-emerald-800/40 text-emerald-400 hover:text-white hover:border-emerald-500/60 transition-all text-sm font-semibold shadow-sm group"
+            className="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/50 text-[#0A3871] dark:text-blue-300 hover:bg-blue-100/80 transition-all text-xs font-semibold shadow-xs"
           >
-            <div className="flex items-center gap-2.5">
-              <Sparkles className="w-4 h-4 text-[#1DB954] animate-spin" style={{ animationDuration: '6s' }} />
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-3.5 h-3.5 text-[#EA580C]" />
               <span>Ask APAAR AI</span>
             </div>
-            <span className="text-[10px] bg-emerald-900/60 text-emerald-300 font-bold px-1.5 py-0.5 rounded">
-              Beta
+            <span className="text-[9px] bg-blue-200/80 dark:bg-blue-800/60 text-[#0A3871] dark:text-blue-200 font-bold px-1.5 py-0.5 rounded">
+              Assistant
             </span>
           </button>
         </div>
       </div>
 
-      {/* Spotify "Your Library" Style Panel */}
-      <div className="p-3 mx-2 mb-2 bg-[#181818] rounded-xl border border-[#282828]">
-        <div className="flex items-center justify-between text-xs font-bold text-[#B3B3B3] mb-2 px-1">
-          <div className="flex items-center gap-2">
-            <Bookmark className="w-3.5 h-3.5 text-[#1DB954]" />
-            <span>QUICK FILTERS</span>
+      {/* Statutory Quick Filters Panel */}
+      <div className="p-3 mx-2 mb-2 bg-white dark:bg-[#0F172A] rounded-lg border border-slate-200 dark:border-slate-800 shadow-xs">
+        <div className="flex items-center justify-between text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-2 px-1">
+          <div className="flex items-center gap-1.5">
+            <Bookmark className="w-3.5 h-3.5 text-[#0A3871] dark:text-blue-400" />
+            <span>STATUTORY FILTERS</span>
           </div>
-          <span className="text-[10px] text-zinc-500 uppercase">{role}</span>
+          <span className="text-[9px] text-slate-500 font-semibold uppercase">{role}</span>
         </div>
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-1">
           <NavLink
             to="/students?verification_status=Flagged"
-            className="text-[11px] px-2.5 py-1 rounded-full bg-[#242424] hover:bg-[#333] text-zinc-300 font-medium transition"
+            className="text-[10px] px-2 py-0.5 rounded bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800/60 font-semibold transition hover:bg-amber-100"
           >
             Flagged (150)
           </NavLink>
           <NavLink
             to="/students?verification_status=Verified"
-            className="text-[11px] px-2.5 py-1 rounded-full bg-[#242424] hover:bg-[#333] text-zinc-300 font-medium transition"
+            className="text-[10px] px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60 font-semibold transition hover:bg-emerald-100"
           >
             Verified (4.8k)
           </NavLink>
           <NavLink
             to="/colleges?status=Approved"
-            className="text-[11px] px-2.5 py-1 rounded-full bg-[#242424] hover:bg-[#333] text-zinc-300 font-medium transition"
+            className="text-[10px] px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950/40 text-[#0A3871] dark:text-blue-300 border border-blue-200 dark:border-blue-800/60 font-semibold transition hover:bg-blue-100"
           >
             60 Colleges
           </NavLink>
@@ -132,12 +140,12 @@ export const Sidebar: React.FC = () => {
       </div>
 
       {/* DPDP Act Compliance Footer */}
-      <div className="px-4 py-3 border-t border-[#242424] text-[10px] text-[#777] flex items-center justify-between">
-        <NavLink to="/privacy" className="hover:text-[#1DB954] transition flex items-center gap-1">
-          <ShieldAlert className="w-3 h-3 text-[#1DB954]" />
+      <div className="px-4 py-2.5 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0F172A] text-[10px] text-slate-500 dark:text-slate-400 flex items-center justify-between">
+        <NavLink to="/privacy" className="hover:text-[#0A3871] dark:hover:text-blue-400 transition flex items-center gap-1.5 font-medium">
+          <ShieldAlert className="w-3 h-3 text-[#15803D]" />
           <span>DPDP Act 2023 Compliant</span>
         </NavLink>
-        <span className="text-zinc-600">v1.0</span>
+        <span className="font-mono text-slate-400">v1.0</span>
       </div>
     </aside>
   );

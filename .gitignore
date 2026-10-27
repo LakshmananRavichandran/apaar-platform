@@ -31,5 +31,11 @@ backend/certificates/
 .DS_Store
 Thumbs.db
 
+# SQLite Temporary Files
+*.db-shm
+*.db-wal
+backend/*.db-shm
+backend/*.db-wal
+
 # Docker
 .docker/

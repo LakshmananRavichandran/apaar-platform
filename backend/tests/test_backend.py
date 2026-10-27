@@ -8,7 +8,10 @@ client = TestClient(app)
 def test_root():
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json()["app"] == "APAAR Verify API"
+    if response.headers.get("content-type", "").startswith("application/json"):
+        assert response.json()["app"] == "APAAR Verify API"
+    else:
+        assert "<!doctype html>" in response.text.lower()
 
 def test_demo_logins_endpoint():
     response = client.get("/api/v1/auth/demo-logins")

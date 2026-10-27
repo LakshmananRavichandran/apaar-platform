@@ -4,27 +4,35 @@
 
 @layer base {
   :root {
-    --bg-main: #121212;
-    --panel-main: #181818;
-    --card-main: #1F1F1F;
-    --card-hover: #2A2A2A;
-    --text-primary: #FFFFFF;
-    --text-secondary: #B3B3B3;
-    --accent-green: #1DB954;
-    --accent-green-hover: #1ED760;
-    --border-subtle: #282828;
+    --bg-main: #F8FAFC;
+    --panel-main: #FFFFFF;
+    --card-main: #FFFFFF;
+    --card-hover: #F1F5F9;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #64748B;
+    --accent-navy: #0A3871;
+    --accent-navy-hover: #082C59;
+    --accent-saffron: #EA580C;
+    --accent-green: #15803D;
+    --border-subtle: #E2E8F0;
+    --border-strong: #CBD5E1;
   }
 
-  .light {
-    --bg-main: #F8F9FA;
-    --panel-main: #FFFFFF;
-    --card-main: #F1F3F5;
-    --card-hover: #E9ECEF;
-    --text-primary: #121212;
-    --text-secondary: #495057;
-    --accent-green: #15803D;
-    --accent-green-hover: #16A34A;
-    --border-subtle: #E2E8F0;
+  html.dark {
+    --bg-main: #0B1120;
+    --panel-main: #0F172A;
+    --card-main: #1E293B;
+    --card-hover: #334155;
+    --text-primary: #F8FAFC;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
+    --accent-navy: #2563EB;
+    --accent-navy-hover: #1D4ED8;
+    --accent-saffron: #FB923C;
+    --accent-green: #22C55E;
+    --border-subtle: #334155;
+    --border-strong: #475569;
   }
 
   body {
@@ -35,28 +43,57 @@
     margin: 0;
     padding: 0;
     -webkit-font-smoothing: antialiased;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 }
 
-/* Custom Spotify Scrollbar */
+/* Indian National Tricolor Strip */
+.gov-tricolor-strip {
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    #FF9933 0%,
+    #FF9933 33.3%,
+    #FFFFFF 33.3%,
+    #FFFFFF 66.6%,
+    #138808 66.6%,
+    #138808 100%
+  );
+  position: sticky;
+  top: 0;
+  z-index: 60;
+}
+
+/* Official Government Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 
-::-webkit-scrollbar-thumb {
+html:not(.dark) ::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+html:not(.dark) ::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.2);
   border-radius: 4px;
 }
 
-::-webkit-scrollbar-thumb:hover {
+html.dark ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.4);
 }
 
+/* Government Card & Shelf Styles */
 .spotify-shelf {
   display: flex;
   gap: 1.25rem;
@@ -66,60 +103,319 @@
   scrollbar-width: thin;
 }
 
-.spotify-shelf::-webkit-scrollbar {
-  height: 6px;
-}
-
-.spotify-shelf::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 9999px;
-}
-
-.spotify-shelf::-webkit-scrollbar-thumb:hover {
-  background: #1DB954;
-}
-
-.spotify-card {
-  background-color: #181818;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  border-radius: 8px;
+html:not(.dark) .spotify-card {
+  background-color: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  border-radius: 10px;
   padding: 16px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
 }
 
-.spotify-card:hover {
-  background-color: #282828;
+html:not(.dark) .spotify-card:hover {
+  background-color: #FFFFFF !important;
+  border-color: #0A3871 !important;
+  box-shadow: 0 4px 12px 0 rgba(10, 56, 113, 0.12);
   transform: translateY(-2px);
 }
 
+html.dark .spotify-card {
+  background-color: #1E293B;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 16px;
+  transition: all 0.2s ease;
+}
+
+html.dark .spotify-card:hover {
+  background-color: #26354A;
+  border-color: #475569;
+  transform: translateY(-2px);
+}
+
+/* Official Government Action Buttons */
 .spotify-pill-btn {
-  background-color: #1DB954;
-  color: #000000;
-  font-weight: 700;
-  border-radius: 9999px;
-  padding: 10px 24px;
+  background-color: #0A3871;
+  color: #FFFFFF !important;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 9px 20px;
   transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.08);
 }
 
 .spotify-pill-btn:hover {
-  background-color: #1ED760;
-  transform: scale(1.03);
+  background-color: #082C59;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.12);
 }
 
 .spotify-pill-secondary {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #FFFFFF;
+  background-color: #FFFFFF;
+  color: #0F172A !important;
   font-weight: 600;
-  border-radius: 9999px;
-  padding: 10px 20px;
+  border-radius: 6px;
+  padding: 9px 18px;
   transition: all 0.2s ease;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid #CBD5E1;
 }
 
 .spotify-pill-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.4);
+  background-color: #F8FAFC;
+  border-color: #94A3B8;
+  color: #0A3871 !important;
+}
+
+html.dark .spotify-pill-btn {
+  background-color: #2563EB;
+  color: #FFFFFF !important;
+}
+
+html.dark .spotify-pill-btn:hover {
+  background-color: #1D4ED8;
+}
+
+html.dark .spotify-pill-secondary {
+  background-color: #1E293B;
+  color: #F8FAFC !important;
+  border-color: #334155;
+}
+
+html.dark .spotify-pill-secondary:hover {
+  background-color: #334155;
+  border-color: #475569;
+}
+
+/* =========================================================================
+   LIGHT THEME OVERRIDES (NPTEL / SWAYAM / AICTE Indian Government Portal)
+   ========================================================================= */
+
+html:not(.dark) {
+  /* Surfaces & Backgrounds */
+  .bg-\[\#121212\] {
+    background-color: #F8FAFC !important;
+  }
+  .bg-\[\#121212\]\/95 {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+  }
+  .bg-\[\#181818\] {
+    background-color: #FFFFFF !important;
+  }
+  .bg-\[\#1F1F1F\] {
+    background-color: #FFFFFF !important;
+  }
+  .bg-\[\#242424\] {
+    background-color: #F1F5F9 !important;
+  }
+  .bg-\[\#282828\] {
+    background-color: #EFF6FF !important;
+  }
+  .bg-\[\#2a2a2a\] {
+    background-color: #E2E8F0 !important;
+  }
+  .bg-black {
+    background-color: #FFFFFF !important;
+  }
+  .bg-black\/60 {
+    background-color: #F1F5F9 !important;
+    color: #0F172A !important;
+  }
+  .bg-zinc-900 {
+    background-color: #FFFFFF !important;
+  }
+  .bg-zinc-800 {
+    background-color: #F1F5F9 !important;
+  }
+  .bg-zinc-800\/60 {
+    background-color: #F8FAFC !important;
+  }
+
+  /* Text Colors */
+  .text-white {
+    color: #0F172A !important;
+  }
+  .text-zinc-100 {
+    color: #0F172A !important;
+  }
+  .text-zinc-200 {
+    color: #1E293B !important;
+  }
+  .text-zinc-300 {
+    color: #334155 !important;
+  }
+  .text-\[\#B3B3B3\] {
+    color: #475569 !important;
+  }
+  .text-zinc-400 {
+    color: #475569 !important;
+  }
+  .text-zinc-500 {
+    color: #64748B !important;
+  }
+
+  /* Borders */
+  .border-\[\#242424\],
+  .border-\[\#282828\],
+  .border-\[\#2e2e2e\],
+  .border-\[\#333\],
+  .border-zinc-800,
+  .border-zinc-700,
+  .border-white\/10 {
+    border-color: #E2E8F0 !important;
+  }
+
+  /* Gradients from dark containers -> clean light tint cards */
+  .from-\[\#181818\] {
+    --tw-gradient-from: #FFFFFF !important;
+  }
+  .to-\[\#121212\] {
+    --tw-gradient-to: #F8FAFC !important;
+  }
+  .from-emerald-950\/60 {
+    --tw-gradient-from: #F0FDF4 !important;
+  }
+  .from-amber-950\/60 {
+    --tw-gradient-from: #FFFBEB !important;
+  }
+  .from-blue-950\/60 {
+    --tw-gradient-from: #EFF6FF !important;
+  }
+  .from-purple-950\/60 {
+    --tw-gradient-from: #FAF5FF !important;
+  }
+  .to-\[\#181818\] {
+    --tw-gradient-to: #FFFFFF !important;
+  }
+  .border-emerald-900\/40,
+  .border-emerald-800\/40,
+  .border-emerald-600\/50 {
+    border-color: #BBF7D0 !important;
+  }
+  .border-amber-900\/40 {
+    border-color: #FDE68A !important;
+  }
+  .border-blue-900\/40 {
+    border-color: #BFDBFE !important;
+  }
+  .border-purple-900\/40 {
+    border-color: #E9D5FF !important;
+  }
+
+  /* Saffron & Navy Button / Accent Overrides */
+  .bg-\[\#1DB954\] {
+    background-color: #0A3871 !important;
+    color: #FFFFFF !important;
+  }
+  .text-\[\#1DB954\] {
+    color: #0A3871 !important;
+  }
+  .border-\[\#1DB954\] {
+    border-color: #0A3871 !important;
+  }
+  .hover\:bg-\[\#1ED760\]:hover {
+    background-color: #082C59 !important;
+  }
+
+  /* Input fields & Select elements */
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    background-color: #FFFFFF !important;
+    color: #0F172A !important;
+    border-color: #CBD5E1 !important;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: #94A3B8 !important;
+  }
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-color: #0A3871 !important;
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(10, 56, 113, 0.15) !important;
+  }
+
+  /* Tables in Light Mode */
+  table {
+    background-color: #FFFFFF !important;
+    border-color: #E2E8F0 !important;
+  }
+  table thead {
+    background-color: #F8FAFC !important;
+    border-bottom: 2px solid #E2E8F0 !important;
+  }
+  table th {
+    color: #334155 !important;
+    font-weight: 700 !important;
+  }
+  table td {
+    color: #0F172A !important;
+    border-bottom: 1px solid #F1F5F9 !important;
+  }
+  table tbody tr:hover {
+    background-color: #F8FAFC !important;
+  }
+
+  /* Shadows in Light Mode */
+  .shadow-2xl,
+  .shadow-xl {
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04) !important;
+  }
+
+  /* Modals backdrop */
+  .bg-black\/80 {
+    background-color: rgba(15, 23, 42, 0.6) !important;
+  }
+}
+
+/* =========================================================================
+   DARK THEME REFINEMENTS (Institutional Dark Mode)
+   ========================================================================= */
+
+html.dark {
+  .bg-\[\#121212\] {
+    background-color: #0B1120 !important;
+  }
+  .bg-\[\#121212\]\/95 {
+    background-color: rgba(11, 17, 32, 0.95) !important;
+  }
+  .bg-\[\#181818\] {
+    background-color: #0F172A !important;
+  }
+  .bg-\[\#1F1F1F\] {
+    background-color: #1E293B !important;
+  }
+  .bg-\[\#242424\] {
+    background-color: #243044 !important;
+  }
+  .bg-\[\#282828\] {
+    background-color: #2A3850 !important;
+  }
+  .border-\[\#242424\],
+  .border-\[\#282828\],
+  .border-\[\#2e2e2e\],
+  .border-\[\#333\] {
+    border-color: #334155 !important;
+  }
+  .text-white {
+    color: #F8FAFC !important;
+  }
+  .text-\[\#B3B3B3\] {
+    color: #94A3B8 !important;
+  }
+  .bg-\[\#1DB954\] {
+    background-color: #2563EB !important;
+    color: #FFFFFF !important;
+  }
+  .text-\[\#1DB954\] {
+    color: #38BDF8 !important;
+  }
+  .border-\[\#1DB954\] {
+    border-color: #38BDF8 !important;
+  }
 }

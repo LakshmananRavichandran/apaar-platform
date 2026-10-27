@@ -129,13 +129,18 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   }, [user, addNotification]);
 
   return (
-    <div className="flex h-screen w-screen bg-[#121212] text-white overflow-hidden font-sans">
-      <Sidebar />
-      <div className="flex-1 flex flex-col h-full overflow-hidden bg-gradient-to-b from-[#181818] to-[#121212]">
-        <TopBar />
-        <main className="flex-1 overflow-y-auto pb-24 p-6">
-          {children}
-        </main>
+    <div className="flex flex-col h-screen w-screen bg-slate-100 dark:bg-[#0B1120] text-slate-900 dark:text-slate-100 overflow-hidden font-sans">
+      {/* Indian National Tricolor Ribbon */}
+      <div className="gov-tricolor-strip" />
+
+      <div className="flex flex-1 h-[calc(100vh-4px)] overflow-hidden">
+        <Sidebar />
+        <div className="flex-1 flex flex-col h-full overflow-hidden bg-slate-50 dark:bg-[#0B1120]">
+          <TopBar />
+          <main className="flex-1 overflow-y-auto pb-24 p-6 bg-slate-50 dark:bg-[#0B1120]">
+            {children}
+          </main>
+        </div>
       </div>
 
       <NowViewingBar />

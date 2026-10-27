@@ -14,7 +14,7 @@ interface Message {
   followUps?: string[];
 }
 
-const COLORS = ['#1DB954', '#3B82F6', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899'];
+const COLORS = ['#0A3871', '#EA580C', '#15803D', '#2563EB', '#D97706', '#7C3AED'];
 
 export const AskApaarDrawer: React.FC = () => {
   const { aiDrawerOpen, setAiDrawerOpen } = useAppStore();
@@ -77,24 +77,24 @@ export const AskApaarDrawer: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-y-0 right-0 w-full sm:w-[460px] bg-[#181818] border-l border-[#282828] z-50 shadow-2xl flex flex-col">
+    <div className="fixed inset-y-0 right-0 w-full sm:w-[460px] bg-white dark:bg-[#0F172A] border-l border-slate-200 dark:border-slate-800 z-50 shadow-2xl flex flex-col transition-colors duration-200">
       {/* Header */}
-      <div className="p-4 border-b border-[#282828] flex items-center justify-between bg-[#121212]">
+      <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-[#0B1120]">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-emerald-950 border border-emerald-600/50 flex items-center justify-center text-[#1DB954]">
-            <Sparkles className="w-4 h-4" />
+          <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 flex items-center justify-center text-[#0A3871] dark:text-blue-400">
+            <Sparkles className="w-4 h-4 text-[#EA580C]" />
           </div>
           <div>
-            <h3 className="font-bold text-white text-sm">Ask APAAR Assistant</h3>
-            <span className="text-[10px] text-[#1DB954] font-semibold flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#1DB954] animate-pulse" />
+            <h3 className="font-bold text-slate-900 dark:text-white text-sm">Ask APAAR AI Assistant</h3>
+            <span className="text-[10px] text-[#15803D] dark:text-emerald-400 font-semibold flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               Connected to Live National Database
             </span>
           </div>
         </div>
         <button
           onClick={() => setAiDrawerOpen(false)}
-          className="text-zinc-400 hover:text-white transition p-1"
+          className="text-slate-400 hover:text-slate-700 dark:hover:text-white transition p-1"
         >
           <X className="w-5 h-5" />
         </button>
@@ -108,25 +108,25 @@ export const AskApaarDrawer: React.FC = () => {
             className={`flex gap-3 ${m.sender === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             {m.sender === 'assistant' && (
-              <div className="w-7 h-7 rounded-full bg-[#1DB954]/20 text-[#1DB954] flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">
+              <div className="w-7 h-7 rounded-lg bg-[#0A3871] text-white flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">
                 A
               </div>
             )}
             <div
-              className={`max-w-[85%] rounded-2xl p-3 text-xs leading-relaxed ${
+              className={`max-w-[85%] rounded-xl p-3 text-xs leading-relaxed ${
                 m.sender === 'user'
-                  ? 'bg-[#1DB954] text-black font-semibold'
-                  : 'bg-[#242424] text-zinc-200 border border-[#2e2e2e]'
+                  ? 'bg-[#0A3871] text-white font-semibold'
+                  : 'bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700'
               }`}
             >
               <div className="whitespace-pre-wrap">{m.text}</div>
 
               {/* Render Chart if available */}
               {m.chartData && m.chartData.length > 0 && (
-                <div className="mt-3 pt-3 border-t border-zinc-700/60 bg-[#1A1A1A] rounded-xl p-2.5">
+                <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900/60 rounded-lg p-2.5">
                   {m.chartTitle && (
-                    <div className="text-[11px] font-bold text-zinc-300 mb-2 flex items-center gap-1.5">
-                      <BarChart2 className="w-3.5 h-3.5 text-[#1DB954]" />
+                    <div className="text-[11px] font-bold text-slate-800 dark:text-slate-200 mb-2 flex items-center gap-1.5">
+                      <BarChart2 className="w-3.5 h-3.5 text-[#0A3871] dark:text-blue-400" />
                       <span>{m.chartTitle}</span>
                     </div>
                   )}
@@ -148,16 +148,16 @@ export const AskApaarDrawer: React.FC = () => {
                               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                             ))}
                           </Pie>
-                          <Tooltip contentStyle={{ backgroundColor: '#181818', border: '1px solid #333', fontSize: 10 }} />
+                          <Tooltip contentStyle={{ backgroundColor: '#FFFFFF', borderColor: '#CBD5E1', fontSize: 10, color: '#0F172A' }} />
                         </PieChart>
                       </ResponsiveContainer>
                     </div>
                   ) : m.chartType === 'metric' ? (
                     <div className="grid grid-cols-3 gap-2">
                       {m.chartData.map((d, i) => (
-                        <div key={i} className="bg-[#242424] p-2 rounded-lg text-center">
-                          <div className="text-[10px] text-zinc-400">{d.label}</div>
-                          <div className="text-sm font-black text-[#1DB954]">{d.value.toLocaleString()}</div>
+                        <div key={i} className="bg-slate-100 dark:bg-slate-800 p-2 rounded-lg text-center">
+                          <div className="text-[10px] text-slate-500 dark:text-slate-400">{d.label}</div>
+                          <div className="text-sm font-black text-[#0A3871] dark:text-blue-400">{d.value.toLocaleString()}</div>
                         </div>
                       ))}
                     </div>
@@ -165,10 +165,10 @@ export const AskApaarDrawer: React.FC = () => {
                     <div className="h-44 w-full">
                       <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={m.chartData} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}>
-                          <XAxis dataKey="label" tick={{ fill: '#888', fontSize: 9 }} interval={0} />
-                          <YAxis tick={{ fill: '#888', fontSize: 9 }} />
-                          <Tooltip contentStyle={{ backgroundColor: '#181818', border: '1px solid #333', fontSize: 10 }} />
-                          <Bar dataKey="value" fill="#1DB954" radius={[4, 4, 0, 0]} />
+                          <XAxis dataKey="label" tick={{ fill: '#64748B', fontSize: 9 }} interval={0} />
+                          <YAxis tick={{ fill: '#64748B', fontSize: 9 }} />
+                          <Tooltip contentStyle={{ backgroundColor: '#FFFFFF', borderColor: '#CBD5E1', fontSize: 10, color: '#0F172A' }} />
+                          <Bar dataKey="value" fill="#0A3871" radius={[4, 4, 0, 0]} />
                         </BarChart>
                       </ResponsiveContainer>
                     </div>
@@ -178,12 +178,12 @@ export const AskApaarDrawer: React.FC = () => {
 
               {/* Follow-up Prompt Pills */}
               {m.followUps && m.followUps.length > 0 && (
-                <div className="mt-2.5 pt-2 border-t border-zinc-700/40 flex flex-wrap gap-1.5">
+                <div className="mt-2.5 pt-2 border-t border-slate-200 dark:border-slate-700/60 flex flex-wrap gap-1.5">
                   {m.followUps.map((f, i) => (
                     <button
                       key={i}
                       onClick={() => handleSend(f)}
-                      className="text-[10px] px-2.5 py-1 rounded-full bg-[#181818] hover:bg-[#333] text-zinc-300 transition text-left"
+                      className="text-[10px] px-2.5 py-1 rounded-full bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 transition text-left"
                     >
                       {f}
                     </button>
@@ -192,22 +192,22 @@ export const AskApaarDrawer: React.FC = () => {
               )}
             </div>
             {m.sender === 'user' && (
-              <div className="w-7 h-7 rounded-full bg-zinc-700 text-white flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">
+              <div className="w-7 h-7 rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">
                 U
               </div>
             )}
           </div>
         ))}
         {loading && (
-          <div className="flex items-center gap-2 text-xs text-[#B3B3B3] py-2">
-            <Sparkles className="w-4 h-4 text-[#1DB954] animate-spin" />
+          <div className="flex items-center gap-2 text-xs text-slate-500 py-2">
+            <Sparkles className="w-4 h-4 text-[#EA580C] animate-spin" />
             <span>Analyzing student records & calculating metrics...</span>
           </div>
         )}
       </div>
 
       {/* Input Form */}
-      <div className="p-3 border-t border-[#282828] bg-[#121212]">
+      <div className="p-3 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#0B1120]">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -220,12 +220,12 @@ export const AskApaarDrawer: React.FC = () => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask about students, states, flags, or colleges..."
-            className="flex-1 bg-[#242424] text-white text-xs px-3.5 py-2.5 rounded-xl border border-transparent focus:border-[#1DB954] outline-none"
+            className="flex-1 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs px-3.5 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 focus:border-[#0A3871] outline-none"
           />
           <button
             type="submit"
             disabled={!input.trim() || loading}
-            className="w-9 h-9 rounded-xl bg-[#1DB954] text-black hover:bg-[#1ed760] disabled:opacity-40 flex items-center justify-center transition shrink-0 font-bold"
+            className="w-9 h-9 rounded-lg bg-[#0A3871] text-white hover:bg-[#082C59] disabled:opacity-40 flex items-center justify-center transition shrink-0 font-bold"
           >
             <Send className="w-4 h-4" />
           </button>

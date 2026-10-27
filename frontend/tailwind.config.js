@@ -8,6 +8,17 @@ export default {
   theme: {
     extend: {
       colors: {
+        gov: {
+          navy: '#0A3871',
+          navyHover: '#082C59',
+          saffron: '#EA580C',
+          green: '#15803D',
+          bgLight: '#F8FAFC',
+          cardLight: '#FFFFFF',
+          borderLight: '#E2E8F0',
+          textLight: '#0F172A',
+          subtextLight: '#475569',
+        },
         spotify: {
           base: '#121212',
           panel: '#181818',

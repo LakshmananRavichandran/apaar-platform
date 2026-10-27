@@ -20,18 +20,36 @@ interface AppState {
   t: (key: string) => string;
 }
 
+const initialTheme: 'dark' | 'light' = (localStorage.getItem('apaar_theme') as 'dark' | 'light') || 'light';
+
+// Apply initial theme class to HTML element
+if (typeof document !== 'undefined') {
+  if (initialTheme === 'dark') {
+    document.documentElement.classList.add('dark');
+    document.documentElement.classList.remove('light');
+  } else {
+    document.documentElement.classList.add('light');
+    document.documentElement.classList.remove('dark');
+  }
+}
+
 export const useAppStore = create<AppState>((set, get) => ({
-  theme: 'dark',
+  theme: initialTheme,
   language: 'en',
   searchOpen: false,
   shortcutsOpen: false,
   aiDrawerOpen: false,
   highContrast: false,
   setTheme: (theme) => {
-    if (theme === 'light') {
-      document.documentElement.classList.add('light');
-    } else {
-      document.documentElement.classList.remove('light');
+    localStorage.setItem('apaar_theme', theme);
+    if (typeof document !== 'undefined') {
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+      } else {
+        document.documentElement.classList.add('light');
+        document.documentElement.classList.remove('dark');
+      }
     }
     set({ theme });
   },
