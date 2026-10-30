@@ -113,10 +113,15 @@ export const StudentPortal: React.FC = () => {
         api.get('/student-portal/my-profile'),
         api.get('/student-portal/consent-center')
       ]);
-      setProfile(profRes.data.student);
-      setTimeline(profRes.data.timeline || []);
-      setAcademicRecords(profRes.data.academic_records || []);
-      setConsentData(consentRes.data);
+      const studentData = profRes.data?.student || (profRes.data?.id ? profRes.data : null);
+      setProfile(studentData);
+      setTimeline(Array.isArray(profRes.data?.timeline) ? profRes.data.timeline : []);
+      setAcademicRecords(Array.isArray(profRes.data?.academic_records) ? profRes.data.academic_records : []);
+      setConsentData({
+        pending_requests: Array.isArray(consentRes.data?.pending_requests) ? consentRes.data.pending_requests : [],
+        active_consents: Array.isArray(consentRes.data?.active_consents) ? consentRes.data.active_consents : [],
+        consent_history: Array.isArray(consentRes.data?.consent_history) ? consentRes.data.consent_history : []
+      });
     } catch (err: any) {
       toast.error('Failed to load student profile');
     } finally {
@@ -398,19 +403,19 @@ export const StudentPortal: React.FC = () => {
           <div className="bg-[#181818] p-6 rounded-2xl border border-white/5 space-y-4">
             <h3 className="text-base font-bold text-white flex items-center gap-2">
               <Clock className="w-4 h-4 text-amber-400" />
-              Pending Verifier Access Authorizations ({consentData.pending_requests.length})
+              Pending Verifier Access Authorizations ({(consentData.pending_requests || []).length})
             </h3>
             <p className="text-xs text-[#B3B3B3]">
               Third-party employers, banks, or universities requesting consent to inspect your verified semester transcripts.
             </p>
 
-            {consentData.pending_requests.length === 0 ? (
+            {(consentData.pending_requests || []).length === 0 ? (
               <div className="text-center py-8 text-xs text-[#B3B3B3]">
                 No pending verification requests awaiting authorization.
               </div>
             ) : (
               <div className="space-y-3">
-                {consentData.pending_requests.map((r) => (
+                {(consentData.pending_requests || []).map((r) => (
                   <div key={r.id} className="bg-[#242424] p-4 rounded-xl border border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div className="space-y-1">
                       <div className="text-sm font-bold text-white">{r.organization_name}</div>
@@ -453,13 +458,13 @@ export const StudentPortal: React.FC = () => {
               Currently Active Consent Grants
             </h3>
 
-            {consentData.active_consents.length === 0 ? (
+            {(consentData.active_consents || []).length === 0 ? (
               <div className="text-center py-8 text-xs text-[#B3B3B3]">
                 No active verifier authorizations currently granted.
               </div>
             ) : (
               <div className="divide-y divide-white/5">
-                {consentData.active_consents.map((c) => (
+                {(consentData.active_consents || []).map((c) => (
                   <div key={c.id} className="py-3 flex items-center justify-between gap-4">
                     <div>
                       <div className="text-xs font-bold text-white">{c.organization_name}</div>

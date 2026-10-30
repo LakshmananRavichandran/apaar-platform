@@ -45,7 +45,13 @@ export const Dashboard: React.FC = () => {
     );
   }
 
-  const { metrics, state_stats, funnel, monthly_trend, gender_ratio, category_breakdown, branch_breakdown } = data;
+  const metrics = data?.metrics || {};
+  const state_stats = Array.isArray(data?.state_stats) ? data.state_stats : [];
+  const funnel = Array.isArray(data?.funnel) ? data.funnel : [];
+  const monthly_trend = Array.isArray(data?.monthly_trend) ? data.monthly_trend : [];
+  const gender_ratio = Array.isArray(data?.gender_ratio) ? data.gender_ratio : [];
+  const category_breakdown = Array.isArray(data?.category_breakdown) ? data.category_breakdown : [];
+  const branch_breakdown = Array.isArray(data?.branch_breakdown) ? data.branch_breakdown : [];
 
   const filteredStates = selectedState === 'ALL'
     ? state_stats

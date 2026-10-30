@@ -40,10 +40,10 @@ export const Home: React.FC = () => {
           ApiClient.get('/colleges', { limit: 8 })
         ]);
 
-        setMetrics(dashRes.metrics);
-        setPendingStudents(pendRes.students || []);
-        setFlaggedStudents(flagRes.students || []);
-        setTopColleges(colRes.colleges || []);
+        setMetrics(dashRes?.metrics || null);
+        setPendingStudents(pendRes?.students || pendRes?.items || []);
+        setFlaggedStudents(flagRes?.students || flagRes?.items || []);
+        setTopColleges(colRes?.colleges || colRes?.items || []);
       } catch (err) {
         console.error('Failed to load home data:', err);
       } finally {

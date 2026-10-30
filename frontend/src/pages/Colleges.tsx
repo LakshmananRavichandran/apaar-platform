@@ -29,7 +29,8 @@ export const Colleges: React.FC = () => {
         state: selectedState || undefined,
         limit: 60
       });
-      setColleges(res.colleges || []);
+      const list = Array.isArray(res) ? res : (res.colleges || res.items || []);
+      setColleges(list);
     } catch (err) {
       console.error('Failed to fetch colleges:', err);
     } finally {

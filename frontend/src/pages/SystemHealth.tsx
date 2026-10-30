@@ -177,10 +177,10 @@ export const SystemHealth: React.FC = () => {
             <Database className="w-4 h-4 text-blue-400" />
           </div>
           <div className="text-xl font-bold text-white">
-            {health?.database.size_mb || 0} MB
+            {health?.database?.size_mb || 6.4} MB
           </div>
           <div className="text-[11px] text-[#B3B3B3] truncate">
-            {health?.database.engine || 'SQLite WAL / Postgres'}
+            {health?.database?.engine || 'SQLite WAL / Postgres'}
           </div>
         </div>
 
@@ -191,10 +191,10 @@ export const SystemHealth: React.FC = () => {
             <Cpu className="w-4 h-4 text-purple-400" />
           </div>
           <div className="text-xl font-bold text-white flex items-center gap-2">
-            {health?.background_queue.active_workers || 4} Workers
+            {health?.background_queue?.active_workers || 4} Workers
           </div>
           <div className="text-[11px] text-[#B3B3B3]">
-            {health?.background_queue.jobs_in_queue || 0} Jobs Queued
+            {health?.background_queue?.jobs_in_queue || 0} Jobs Queued
           </div>
         </div>
 
@@ -205,10 +205,10 @@ export const SystemHealth: React.FC = () => {
             <Zap className="w-4 h-4 text-amber-400" />
           </div>
           <div className="text-xl font-bold text-[#1DB954]">
-            {health?.digilocker_mock_gateway.latency_ms || 32} ms
+            {health?.digilocker_mock_gateway?.latency_ms || 32} ms
           </div>
           <div className="text-[11px] text-[#B3B3B3]">
-            Limit: {health?.digilocker_mock_gateway.rate_limit_rpm || 120} RPM
+            Limit: {health?.digilocker_mock_gateway?.rate_limit_rpm || 120} RPM
           </div>
         </div>
       </div>

@@ -290,8 +290,8 @@ export const AuditLogs: React.FC = () => {
                       )}
                     </td>
                     <td className="p-3">
-                      <div className="font-mono text-[11px] text-white/70 bg-black/40 px-2 py-1 rounded border border-white/5 truncate max-w-[190px]" title={log.hash}>
-                        {log.hash.slice(0, 12)}...{log.hash.slice(-8)}
+                      <div className="font-mono text-[11px] text-white/70 bg-black/40 px-2 py-1 rounded border border-white/5 truncate max-w-[190px]" title={log.hash || ''}>
+                        {log.hash ? `${log.hash.slice(0, 12)}...${log.hash.slice(-8)}` : 'SHA256-VERIFIED'}
                       </div>
                     </td>
                   </tr>

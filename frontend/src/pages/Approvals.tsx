@@ -53,18 +53,22 @@ export const Approvals: React.FC = () => {
   const fetchTransfers = async () => {
     try {
       const res = await api.get('/approvals/transfers');
-      setTransfers(res.data || []);
+      const list = Array.isArray(res.data) ? res.data : (Array.isArray(res.data?.transfers) ? res.data.transfers : []);
+      setTransfers(list);
     } catch (err: any) {
       toast.error('Failed to load transfer queue');
+      setTransfers([]);
     }
   };
 
   const fetchEdits = async () => {
     try {
       const res = await api.get('/approvals/edit-requests');
-      setEdits(res.data || []);
+      const list = Array.isArray(res.data) ? res.data : (Array.isArray(res.data?.edits) ? res.data.edits : []);
+      setEdits(list);
     } catch (err: any) {
       toast.error('Failed to load edit requests queue');
+      setEdits([]);
     }
   };
 
@@ -138,7 +142,7 @@ export const Approvals: React.FC = () => {
           }`}
         >
           <ArrowRightLeft className="w-4 h-4" />
-          College Transfers ({transfers.filter((t) => t.status === 'PENDING').length} Pending)
+          College Transfers ({(transfers || []).filter((t) => t.status === 'PENDING').length} Pending)
         </button>
 
         <button
@@ -150,7 +154,7 @@ export const Approvals: React.FC = () => {
           }`}
         >
           <Edit3 className="w-4 h-4" />
-          Demographic Edit Requests ({edits.filter((e) => e.status === 'PENDING').length} Pending)
+          Demographic Edit Requests ({(edits || []).filter((e) => e.status === 'PENDING').length} Pending)
         </button>
       </div>
 

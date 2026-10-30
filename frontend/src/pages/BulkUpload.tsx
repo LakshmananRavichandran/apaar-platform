@@ -45,9 +45,11 @@ export const BulkUpload: React.FC = () => {
     try {
       setLoadingHistory(true);
       const res = await ApiClient.get('/uploads/history');
-      setHistory(res || []);
+      const list = Array.isArray(res) ? res : (Array.isArray(res?.history) ? res.history : []);
+      setHistory(list);
     } catch (e) {
       console.error(e);
+      setHistory([]);
     } finally {
       setLoadingHistory(false);
     }
@@ -339,7 +341,7 @@ export const BulkUpload: React.FC = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#222]">
-                {history.map((b) => (
+                {(Array.isArray(history) ? history : []).map((b) => (
                   <tr key={b.id} className="hover:bg-[#202020]">
                     <td className="p-3 font-mono font-bold text-zinc-300">#{b.id}</td>
                     <td className="p-3 font-semibold text-white">{b.filename}</td>

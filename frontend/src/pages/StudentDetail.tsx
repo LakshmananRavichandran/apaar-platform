@@ -164,7 +164,15 @@ export const StudentDetail: React.FC = () => {
     );
   }
 
-  const anomalyList: string[] = student.anomaly_reasons ? JSON.parse(student.anomaly_reasons) : [];
+  let anomalyList: string[] = [];
+  if (student.anomaly_reasons) {
+    try {
+      const parsed = JSON.parse(student.anomaly_reasons);
+      anomalyList = Array.isArray(parsed) ? parsed : [String(parsed)];
+    } catch {
+      anomalyList = [student.anomaly_reasons];
+    }
+  }
 
   return (
     <div className="space-y-6 select-none max-w-6xl mx-auto pb-12">

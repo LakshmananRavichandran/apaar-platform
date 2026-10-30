@@ -9,11 +9,20 @@ interface AuthState {
   logout: () => void;
 }
 
-const savedUser = localStorage.getItem('apaar_user');
+const getSavedUser = (): User | null => {
+  try {
+    const saved = localStorage.getItem('apaar_user');
+    return saved ? JSON.parse(saved) : null;
+  } catch {
+    return null;
+  }
+};
+
+const savedUser = getSavedUser();
 const savedToken = localStorage.getItem('apaar_access_token');
 
 export const useAuthStore = create<AuthState>((set) => ({
-  user: savedUser ? JSON.parse(savedUser) : null,
+  user: savedUser,
   accessToken: savedToken || null,
   isAuthenticated: !!savedToken,
   setUser: (user, accessToken, refreshToken) => {

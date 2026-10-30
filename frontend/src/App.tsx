@@ -25,6 +25,7 @@ import { AuditLogs } from './pages/AuditLogs';
 import { SystemHealth } from './pages/SystemHealth';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { PublicVerify } from './pages/PublicVerify';
+import { ErrorBoundary } from './components/common/ErrorBoundary';
 
 // Protected Route Component
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -32,12 +33,19 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
-  return <MainLayout>{children}</MainLayout>;
+  return (
+    <ErrorBoundary>
+      <MainLayout>
+        <ErrorBoundary>{children}</ErrorBoundary>
+      </MainLayout>
+    </ErrorBoundary>
+  );
 };
 
 export function App() {
   return (
-    <BrowserRouter>
+    <ErrorBoundary fallbackTitle="Application Initialization Warning">
+      <BrowserRouter>
       {/* Toast notifications styled like Spotify dark theme */}
       <Toaster
         position="top-right"
@@ -213,7 +221,8 @@ export function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
-  );
+  </ErrorBoundary>
+);
 }
 
 export default App;

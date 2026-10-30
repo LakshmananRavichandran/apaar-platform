@@ -163,7 +163,8 @@ export const VerifierPortal: React.FC = () => {
         api.get('/verifier/api-keys'),
         api.get('/verifier/usage-stats')
       ]);
-      setApiKeys(keysRes.data || []);
+      const list = Array.isArray(keysRes.data) ? keysRes.data : (Array.isArray(keysRes.data?.keys) ? keysRes.data.keys : []);
+      setApiKeys(list);
       setUsageStats(statsRes.data || null);
     } catch (err: any) {
       console.error(err);

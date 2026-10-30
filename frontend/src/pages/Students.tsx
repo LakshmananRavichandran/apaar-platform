@@ -43,7 +43,8 @@ export const Students: React.FC = () => {
         branch: branchFilter || undefined
       };
       const res = await ApiClient.get('/students', params);
-      setStudents(res.students || []);
+      const list = Array.isArray(res) ? res : (res.students || res.items || []);
+      setStudents(list);
       setTotal(res.total || 0);
       setTotalPages(res.total_pages || 1);
     } catch (err) {

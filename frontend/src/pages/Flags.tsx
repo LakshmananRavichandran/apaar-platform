@@ -33,7 +33,8 @@ export const Flags: React.FC = () => {
         search: searchTerm || undefined,
         limit: 50
       });
-      setFlags(res.flags || []);
+      const list = Array.isArray(res) ? res : (res.flags || res.items || []);
+      setFlags(list);
     } catch (err) {
       console.error(err);
     } finally {

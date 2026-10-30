@@ -208,7 +208,7 @@ export const Duplicates: React.FC = () => {
                         {group.status.replace('_', ' ')}
                       </span>
                       <span className="text-xs text-[#B3B3B3]">
-                        Confidence: <strong className="text-white">{group.confidence_score}%</strong>
+                        Confidence: <strong className="text-white">{group.confidence_score ?? 95}%</strong>
                       </span>
                     </div>
 
@@ -223,7 +223,7 @@ export const Duplicates: React.FC = () => {
                           APAAR: {group.primary_student?.apaar_id || 'N/A'}
                         </div>
                         <div className="text-xs text-white/70 mt-1 truncate">
-                          {group.primary_student?.college || 'Institution'}
+                          {group.primary_student?.college || group.primary_student?.college_name || 'Institution'}
                         </div>
                       </div>
 
@@ -236,14 +236,14 @@ export const Duplicates: React.FC = () => {
                           APAAR: {group.secondary_student?.apaar_id || 'N/A'}
                         </div>
                         <div className="text-xs text-white/70 mt-1 truncate">
-                          {group.secondary_student?.college || 'Institution'}
+                          {group.secondary_student?.college || group.secondary_student?.college_name || 'Institution'}
                         </div>
                       </div>
                     </div>
 
                     {/* Reasons */}
                     <div className="flex flex-wrap gap-1.5 pt-1">
-                      {group.reasons.map((r, idx) => (
+                      {(group.reasons || []).map((r, idx) => (
                         <span
                           key={idx}
                           className="text-[11px] bg-amber-500/10 text-amber-300 px-2.5 py-0.5 rounded-full border border-amber-500/20"

@@ -36,13 +36,14 @@ export const VerificationHub: React.FC = () => {
 
     try {
       const searchRes = await ApiClient.get('/students', { search: apaarInput.trim(), limit: 1 });
-      if (!searchRes.students || searchRes.students.length === 0) {
+      const studentsList = Array.isArray(searchRes) ? searchRes : (searchRes?.students || searchRes?.items || []);
+      if (!studentsList || studentsList.length === 0) {
         throw new Error(`Student with APAAR ID ${apaarInput} not found in database.`);
       }
 
-      const studentId = searchRes.students[0].id;
+      const studentId = studentsList[0].id;
       const verifyRes = await ApiClient.post(`/verification/verify-student/${studentId}`);
-      setResult({ student: searchRes.students[0], ...verifyRes });
+      setResult({ student: studentsList[0], ...verifyRes });
     } catch (err: any) {
       setError(err.message || 'Verification failed');
     } finally {
