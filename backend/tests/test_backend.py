@@ -101,3 +101,18 @@ def test_ai_assistant_query():
     data = response.json()
     assert "answer" in data
     assert "chart_data" in data
+
+def test_document_authenticity_verification():
+    sample_pdf = b'%PDF-1.4\n1 0 obj\n<< /Producer (AICTE Cert Engine) /Type /Catalog >>\nendobj\n%%EOF\n'
+    response = client.post(
+        "/api/v1/verification/analyze-document-authenticity",
+        files={"file": ("certificate.pdf", sample_pdf, "application/pdf")},
+        data={"apaar_id": "100000000007"}
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert "composite_security_score" in data
+    assert "verdict" in data
+    assert "hologram_analysis" in data
+    assert "watermark_analysis" in data
+    assert "tamper_forensics" in data

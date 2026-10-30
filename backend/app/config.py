@@ -10,8 +10,9 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24  # 24 hours
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
     
-    # Database
-    DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:///./apaar_verify.db")
+    # Database - resolve robustly to backend directory
+    _default_db_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "apaar_verify.db").replace("\\", "/")
+    DATABASE_URL: str = os.getenv("DATABASE_URL", f"sqlite:///{_default_db_path}")
     
     # AES Encryption Key for sensitive fields (32-bytes urlsafe base64 or hex)
     AES_SECRET_KEY: str = os.getenv("AES_SECRET_KEY", "0123456789abcdef0123456789abcdef")  # 32 bytes

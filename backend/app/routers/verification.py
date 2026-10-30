@@ -1,7 +1,7 @@
 import json
 from datetime import datetime, timezone
 from typing import Optional, Dict, Any, List
-from fastapi import APIRouter, Depends, HTTPException, status, Query, BackgroundTasks
+from fastapi import APIRouter, Depends, HTTPException, status, Query, BackgroundTasks, UploadFile, File, Form
 from sqlalchemy.orm import Session
 
 from app.database import get_db
@@ -12,6 +12,7 @@ from app.models.models import (
 from app.core.dependencies import get_current_user, require_roles
 from app.services.verification_engine import verification_engine
 from app.services.digilocker_mock import digilocker_service
+from app.services.forensic_service import forensic_service
 from app.services.audit_service import log_audit_event
 from app.core.websocket import ws_manager
 
@@ -206,3 +207,31 @@ def public_verify(
         "trust_score": student.trust_score,
         "verified_on": student.updated_at.strftime("%d-%b-%Y")
     }
+
+@router.post("/analyze-document-authenticity")
+async def analyze_document_authenticity(
+    file: UploadFile = File(...),
+    apaar_id: Optional[str] = Form(None),
+    db: Session = Depends(get_db)
+):
+    """
+    Forensic Watermark, Hologram & Tamper Authenticity Verification.
+    Analyzes submitted PDFs and scanned certificates for:
+    - Optical variable device (OVD) hologram diffraction
+    - Substrate watermark density & Fourier frequency energy
+    - Error Level Analysis (ELA) for digital tampering / grade edits
+    - PDF incremental revision history and cryptographic PAdES signatures
+    - Cross-validation with AICTE student registry
+    """
+    contents = await file.read()
+    if not contents:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Uploaded file is empty.")
+
+    result = forensic_service.analyze_document_bytes(
+        file_bytes=contents,
+        filename=file.filename or "document.pdf",
+        apaar_or_code=apaar_id,
+        db=db
+    )
+    return result
+
