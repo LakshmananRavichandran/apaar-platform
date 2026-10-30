@@ -3,10 +3,9 @@ venv/
 .venv/
 env/
 
-# Node Dependencies & Build Output
+# Node Dependencies
 node_modules/
 frontend/node_modules/
-frontend/dist/
 
 # Python Cache
 __pycache__/
