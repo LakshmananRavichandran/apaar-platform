@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ShieldCheck, AlertTriangle, Building2, Users, ArrowRight,
-  Sparkles, CheckCircle2, Clock, UploadCloud, RefreshCw
+  Sparkles, CheckCircle2, Clock, UploadCloud, RefreshCw, Scan
 } from 'lucide-react';
 import { useAuthStore } from '../store/useAuthStore';
 import { useAppStore } from '../store/useAppStore';
@@ -101,13 +101,16 @@ export const Home: React.FC = () => {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5">
         <div
           onClick={() => navigate('/verification')}
-          className="bg-white dark:bg-[#0F172A] border border-slate-200 dark:border-slate-800 hover:border-[#0A3871] dark:hover:border-blue-500 p-4 rounded-xl cursor-pointer transition-all group shadow-xs hover:shadow-md"
+          className="bg-white dark:bg-[#0F172A] border-2 border-emerald-500/40 hover:border-[#0A3871] dark:hover:border-blue-500 p-4 rounded-xl cursor-pointer transition-all group shadow-xs hover:shadow-md relative overflow-hidden"
         >
-          <div className="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-[#0A3871] dark:text-blue-300 flex items-center justify-center font-bold mb-3 shadow-xs group-hover:scale-105 transition-transform border border-blue-200 dark:border-blue-800">
-            <ShieldCheck className="w-5 h-5 text-[#0A3871] dark:text-blue-400" />
+          <div className="absolute top-2 right-2 px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/80 text-[#15803D] dark:text-emerald-300 font-extrabold text-[9px] uppercase tracking-wider">
+            Live Tool
           </div>
-          <div className="font-bold text-slate-900 dark:text-white text-sm">Batch Verification Hub</div>
-          <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Rule checks & DigiLocker sync</div>
+          <div className="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-[#15803D] dark:text-emerald-300 flex items-center justify-center font-bold mb-3 shadow-xs group-hover:scale-105 transition-transform border border-emerald-200 dark:border-emerald-800">
+            <Scan className="w-5 h-5 text-[#15803D] dark:text-emerald-400" />
+          </div>
+          <div className="font-bold text-slate-900 dark:text-white text-sm">Watermark & Hologram Verifier</div>
+          <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Scan PDFs for OVD, watermarks & ELA tampering</div>
         </div>
 
         <div

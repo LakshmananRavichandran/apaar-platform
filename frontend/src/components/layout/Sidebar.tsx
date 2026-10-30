@@ -4,7 +4,7 @@ import {
   Home, LayoutDashboard, Users, GraduationCap, ShieldCheck,
   AlertTriangle, Copy, CheckSquare, UploadCloud, BarChart3,
   SearchCheck, UserCircle, Database, Activity, ShieldAlert,
-  Sparkles, ExternalLink, Bookmark, Award
+  Sparkles, ExternalLink, Bookmark, Award, Scan
 } from 'lucide-react';
 import { useAuthStore } from '../../store/useAuthStore';
 import { useAppStore } from '../../store/useAppStore';
@@ -20,7 +20,7 @@ export const Sidebar: React.FC = () => {
     { to: '/dashboard', label: t('dashboard'), icon: LayoutDashboard, roles: ['SUPER_ADMIN', 'AICTE_OFFICER', 'REGIONAL_OFFICER', 'AUDITOR'] },
     { to: '/students', label: t('students'), icon: Users, roles: ['ALL'] },
     { to: '/colleges', label: t('colleges'), icon: GraduationCap, roles: ['ALL'] },
-    { to: '/verification', label: t('verification'), icon: ShieldCheck, roles: ['SUPER_ADMIN', 'AICTE_OFFICER', 'REGIONAL_OFFICER', 'COLLEGE_ADMIN', 'COLLEGE_STAFF'] },
+    { to: '/verification', label: 'Watermark & Verification', icon: Scan, roles: ['ALL'] },
     { to: '/flags', label: t('flags'), icon: AlertTriangle, roles: ['SUPER_ADMIN', 'AICTE_OFFICER', 'REGIONAL_OFFICER', 'COLLEGE_ADMIN', 'COLLEGE_STAFF', 'AUDITOR'] },
     { to: '/duplicates', label: t('duplicates'), icon: Copy, roles: ['SUPER_ADMIN', 'AICTE_OFFICER', 'REGIONAL_OFFICER', 'COLLEGE_ADMIN'] },
     { to: '/approvals', label: t('approvals'), icon: CheckSquare, roles: ['SUPER_ADMIN', 'AICTE_OFFICER', 'COLLEGE_ADMIN', 'COLLEGE_STAFF'] },

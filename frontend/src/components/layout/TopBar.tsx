@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ChevronLeft, ChevronRight, Search, Bell, Moon, Sun,
-  Globe, LogOut, Keyboard, User, Check, Sparkles, Shield
+  Globe, LogOut, Keyboard, User, Check, Sparkles, Shield, Scan
 } from 'lucide-react';
 import { useAuthStore } from '../../store/useAuthStore';
 import { useAppStore } from '../../store/useAppStore';
@@ -61,6 +61,16 @@ export const TopBar: React.FC = () => {
 
       {/* Top right utility bar */}
       <div className="flex items-center gap-2.5">
+        {/* Watermark & Hologram Verifier Quick Action */}
+        <button
+          onClick={() => navigate('/verification')}
+          className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-100 transition text-xs font-bold shadow-xs cursor-pointer"
+          title="Scan marksheet PDFs for Holograms, Watermarks & Tampering"
+        >
+          <Scan className="w-3.5 h-3.5 text-[#15803D] dark:text-emerald-400" />
+          <span>Watermark Verifier</span>
+        </button>
+
         {/* Ask APAAR AI trigger */}
         <button
           onClick={toggleAiDrawer}
